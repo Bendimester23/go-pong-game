@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"embed"
@@ -9,7 +9,6 @@ import (
 )
 
 var (
-	//go:embed resources
 	resources embed.FS
 
 	WastedSound rl.Sound
@@ -17,7 +16,8 @@ var (
 	IconTexture rl.Texture2D
 )
 
-func LoadAllResources() {
+func LoadAllResources(fs embed.FS) {
+	resources = fs
 	rl.InitAudioDevice()
 
 	IconTexture = loadTexture("resources/texture.png")
