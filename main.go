@@ -20,8 +20,14 @@ func main() {
 
 	rl.SetTargetFPS(60)
 
+	utils.LoadSave()
+
 	utils.LoadAllResources(res)
 	screens.LoadScenes()
+
+	if !utils.Save.Saved {
+		screens.SwitchToScene(5)
+	}
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()

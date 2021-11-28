@@ -1,6 +1,10 @@
 package utils
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"os"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -9,6 +13,16 @@ type GameObject interface {
 	Render()
 	Reset()
 }
+
+type Options struct {
+	Username  string `json:"username"`
+	Saved     bool   `kson:"_"`
+	HighScore int    `json:"highscore"`
+}
+
+var (
+	Save *Options
+)
 
 func DrawTitleBtn(text string, id, selected int, offset float32) {
 	alpha := uint8((Clamp(0, 30, offset+30.0-float32((id+6)*2)) / 30.0) * 256)
@@ -26,4 +40,44 @@ func DrawCenterText(text string, y int32, size int32, color rl.Color) {
 
 func DrawCenterTextDef(text string, y int32, size int32) {
 	rl.DrawText(text, int32(rl.GetScreenWidth()/2-int(rl.MeasureText(text, size))/2), y, size, rl.Gray)
+}
+
+func GetDataDir() string {
+	a, _ := os.Getwd()
+	return a
+}
+
+func LoadSave() {
+	f, err := os.Open(GetDataDir() + "/save.json")
+	if err != nil {
+		Save = &Options{}
+		return
+	}
+	defer f.Close()
+
+	raw, err := ioutil.ReadAll(f)
+
+	if err != nil {
+		Save = &Options{}
+		return
+	}
+
+	json.Unmarshal(raw, &Save)
+}
+
+func SaveGame() {
+	f, err := os.Create(GetDataDir() + "/save.json")
+	if err != nil {
+		return
+	}
+	defer f.Close()
+
+	Save.Saved = true
+
+	raw, err := json.Marshal(Save)
+	if err != nil {
+		return
+	}
+
+	f.Write(raw)
 }

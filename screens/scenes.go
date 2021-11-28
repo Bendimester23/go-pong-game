@@ -25,6 +25,7 @@ func LoadScenes() {
 	scenes[2] = &CreditsScreen{}
 	scenes[3] = &GameScreen{}
 	scenes[4] = &GameOverScreen{}
+	scenes[5] = &UsernameScreen{}
 
 	ResetAllScenes()
 }

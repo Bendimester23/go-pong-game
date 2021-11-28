@@ -64,6 +64,7 @@ func (g *GameScreen) Update() {
 		if b.RightBar.Y > int32(b.Position.Y)+50 || b.RightBar.Y+b.RightBar.Height < int32(b.Position.Y) {
 			rl.PlaySound(utils.WastedSound)
 			SwitchToScene(4)
+			utils.SaveGame()
 			return
 		}
 		utils.Score++
