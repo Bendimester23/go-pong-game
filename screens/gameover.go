@@ -26,7 +26,8 @@ func (g *GameOverScreen) Update() {
 
 	if (rl.IsKeyPressed(rl.KeySpace) || rl.IsKeyPressed(rl.KeyEnter)) && g.a > -5 {
 		rl.PlaySound(utils.ClickSound)
-		/* score = 0 */
+		//Not falling for it again
+		utils.Score = 0
 		if g.sel == 0 {
 			SwitchToScene(3)
 		} else {
