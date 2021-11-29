@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"flag"
 
 	_ "image/png"
 	"pong/screens"
@@ -13,6 +14,8 @@ import (
 var (
 	//go:embed resources
 	res embed.FS
+
+	showFps = flag.Bool("fps", false, "show fps")
 )
 
 func main() {
@@ -20,8 +23,14 @@ func main() {
 
 	rl.SetTargetFPS(60)
 
+	utils.LoadSave()
+
 	utils.LoadAllResources(res)
 	screens.LoadScenes()
+
+	if !utils.Save.Saved {
+		screens.SwitchToScene(5)
+	}
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
@@ -30,7 +39,9 @@ func main() {
 
 		screens.Render()
 
-		rl.DrawFPS(20, 20)
+		if *showFps {
+			rl.DrawFPS(20, 20)
+		}
 
 		rl.EndDrawing()
 	}

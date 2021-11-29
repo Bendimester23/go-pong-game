@@ -62,6 +62,7 @@ func (b *TitleScreen) Update() {
 		case 2:
 			SwitchToScene(2)
 		case 3:
+			utils.SaveGame()
 			rl.CloseWindow()
 			os.Exit(0)
 		}

@@ -15,6 +15,7 @@ var (
 	2 - Credits screen
 	3 - Game screen
 	4 - Game over screen
+	5 - Set Username screen
 	*/
 	state = 0
 )
@@ -25,6 +26,9 @@ func LoadScenes() {
 	scenes[2] = &CreditsScreen{}
 	scenes[3] = &GameScreen{}
 	scenes[4] = &GameOverScreen{}
+	scenes[5] = &UsernameScreen{}
+	scenes[6] = &DifficulityScreen{}
+	scenes[7] = &WeirdModeScreen{}
 
 	ResetAllScenes()
 }
@@ -44,7 +48,16 @@ func Render() {
 	}
 }
 
+/*Game state
+0 - Title screen
+1 - Options screen
+2 - Credits screen
+3 - Game screen
+4 - Game over screen
+5 - Set Username screen
+*/
 func SwitchToScene(scene int) {
 	scenes[state].Reset()
 	state = scene
+	scenes[state].Reset()
 }

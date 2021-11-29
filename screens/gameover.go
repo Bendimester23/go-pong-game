@@ -3,6 +3,7 @@ package screens
 import (
 	"fmt"
 	"pong/utils"
+	"strings"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -11,11 +12,17 @@ type GameOverScreen struct {
 	ease_curr float32
 	a         float32
 	sel       int
+	deathMsg  string
 }
 
 func (g *GameOverScreen) Reset() {
 	g.ease_curr = 0
 	g.a = -30 + (utils.EaseInOutQuad(float32(g.ease_curr/1000)) * 30)
+	if strings.ToLower(utils.Save.Username) == "örs" {
+		g.deathMsg = "Örs ez így nem lesz jó!"
+	} else {
+		g.deathMsg = "You ded"
+	}
 }
 
 func (g *GameOverScreen) Update() {
@@ -45,7 +52,7 @@ func (g *GameOverScreen) Update() {
 }
 
 func (g *GameOverScreen) Render() {
-	utils.DrawCenterText("You ded", 130, 30, utils.GrayWithAlpha(g.a, 1))
+	utils.DrawCenterText(g.deathMsg, 130, 30, utils.GrayWithAlpha(g.a, 1))
 	utils.DrawCenterText(fmt.Sprintf("Score: %d", utils.Score), 170, 25, utils.GrayWithAlpha(g.a, 1))
 	//TODO: draw high score
 	/* if is_highscore {
