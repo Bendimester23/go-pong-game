@@ -15,6 +15,7 @@ var (
 	2 - Credits screen
 	3 - Game screen
 	4 - Game over screen
+	5 - Set Username screen
 	*/
 	state = 0
 )
@@ -45,6 +46,14 @@ func Render() {
 	}
 }
 
+/*Game state
+0 - Title screen
+1 - Options screen
+2 - Credits screen
+3 - Game screen
+4 - Game over screen
+5 - Set Username screen
+*/
 func SwitchToScene(scene int) {
 	scenes[state].Reset()
 	state = scene

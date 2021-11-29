@@ -1,7 +1,6 @@
 package screens
 
 import (
-	"fmt"
 	"pong/utils"
 	"regexp"
 
@@ -18,19 +17,18 @@ func (o *UsernameScreen) Reset() {
 }
 
 func (o *UsernameScreen) Update() {
-	c := rl.GetCharPressed()
-	if c != 0 && len(o.val) < 16 {
-		o.val += string(c)
-		fmt.Println(o.val)
-	}
 	if rl.IsKeyPressed(rl.KeyBackspace) {
 		if len(o.val) > 0 {
 			o.val = o.val[:len(o.val)-1]
-			fmt.Println(o.val)
 		}
 	}
 
-	if b, _ := regexp.MatchString("^[a-zA-Z0-9_]{3,16}$", o.val); b {
+	c := rl.GetCharPressed()
+	if c != 0 && len(o.val) < 16 {
+		o.val += string(c)
+	}
+
+	if b, _ := regexp.MatchString("^[a-zA-Z0-9_áÁéÉöÖüÜóÓőŐúÚűŰäÄß]{3,16}$", o.val); b {
 		o.valid = true
 	} else {
 		o.valid = false
