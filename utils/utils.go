@@ -2,8 +2,10 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
+	"runtime"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -43,6 +45,12 @@ func DrawCenterTextDef(text string, y int32, size int32) {
 }
 
 func GetDataDir() string {
+	switch runtime.GOOS {
+	case "windows":
+		return fmt.Sprintf("%s\\pong-save.json", os.Getenv("APPDATA"))
+	case "linux":
+		return fmt.Sprintf("%s/pong-save.json", os.Getenv("HOME"))
+	}
 	a, _ := os.Getwd()
 	return a
 }
