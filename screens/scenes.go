@@ -27,6 +27,8 @@ func LoadScenes() {
 	scenes[3] = &GameScreen{}
 	scenes[4] = &GameOverScreen{}
 	scenes[5] = &UsernameScreen{}
+	scenes[6] = &DifficulityScreen{}
+	scenes[7] = &WeirdModeScreen{}
 
 	ResetAllScenes()
 }
@@ -57,4 +59,5 @@ func Render() {
 func SwitchToScene(scene int) {
 	scenes[state].Reset()
 	state = scene
+	scenes[state].Reset()
 }

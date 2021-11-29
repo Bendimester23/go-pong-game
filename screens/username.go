@@ -36,8 +36,12 @@ func (o *UsernameScreen) Update() {
 
 	if (rl.IsKeyPressed(rl.KeySpace) || rl.IsKeyPressed(rl.KeyEnter)) && o.valid {
 		utils.Save.Username = o.val
+		if utils.Save.Saved {
+			SwitchToScene(0)
+		} else {
+			SwitchToScene(6)
+		}
 		utils.SaveGame()
-		SwitchToScene(0)
 	}
 }
 

@@ -17,9 +17,11 @@ type GameObject interface {
 }
 
 type Options struct {
-	Username  string `json:"username"`
-	Saved     bool   `kson:"_"`
-	HighScore int    `json:"highscore"`
+	Username   string `json:"username"`
+	Saved      bool   `kson:"_"`
+	HighScore  int    `json:"highscore"`
+	Difficulty int    `json:"difficulty"`
+	WeirdMode  bool   `json:"weird_mode"`
 }
 
 var (
@@ -44,7 +46,7 @@ func DrawCenterTextDef(text string, y int32, size int32) {
 	rl.DrawText(text, int32(rl.GetScreenWidth()/2-int(rl.MeasureText(text, size))/2), y, size, rl.Gray)
 }
 
-func GetDataDir() string {
+func GetDataFile() string {
 	switch runtime.GOOS {
 	case "windows":
 		return fmt.Sprintf("%s\\pong-save.json", os.Getenv("APPDATA"))
@@ -56,7 +58,7 @@ func GetDataDir() string {
 }
 
 func LoadSave() {
-	f, err := os.Open(GetDataDir() + "/save.json")
+	f, err := os.Open(GetDataFile())
 	if err != nil {
 		Save = &Options{}
 		return
@@ -74,8 +76,9 @@ func LoadSave() {
 }
 
 func SaveGame() {
-	f, err := os.Create(GetDataDir() + "/save.json")
+	f, err := os.Create(GetDataFile())
 	if err != nil {
+		fmt.Printf("Error saving: %s", err.Error())
 		return
 	}
 	defer f.Close()
@@ -84,6 +87,7 @@ func SaveGame() {
 
 	raw, err := json.Marshal(Save)
 	if err != nil {
+		fmt.Printf("Error saving: %s", err.Error())
 		return
 	}
 

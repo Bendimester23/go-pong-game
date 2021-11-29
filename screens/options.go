@@ -1,7 +1,6 @@
 package screens
 
 import (
-	"os"
 	"pong/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -29,7 +28,7 @@ func (o *OptionsScreen) Update() {
 		o.selected--
 	}
 
-	if rl.IsKeyPressed(rl.KeyDown) && o.selected < 1 {
+	if rl.IsKeyPressed(rl.KeyDown) && o.selected < 3 {
 		o.selected++
 	}
 
@@ -40,13 +39,11 @@ func (o *OptionsScreen) Update() {
 		case 0:
 			SwitchToScene(5)
 		case 1:
-			SwitchToScene(0)
+			SwitchToScene(6)
 		case 2:
-			SwitchToScene(2)
+			SwitchToScene(7)
 		case 3:
-			utils.SaveGame()
-			rl.CloseWindow()
-			os.Exit(0)
+			SwitchToScene(0)
 		}
 	}
 }
@@ -54,6 +51,8 @@ func (o *OptionsScreen) Update() {
 func (o *OptionsScreen) Render() {
 	utils.DrawCenterTextDef("Options", 80, 30)
 
-	utils.DrawTitleBtn("Set Username", 0, o.selected, o.a)
-	utils.DrawTitleBtn("Back", 1, o.selected, o.a)
+	DrawTitleBtn("Set Username", 0, o.selected, o.a, 0)
+	DrawTitleBtn("Set Difficulity", 1, o.selected, o.a, 0)
+	DrawTitleBtn("Set Weird Mode", 2, o.selected, o.a, 0)
+	DrawTitleBtn("Back", 3, o.selected, o.a, 0)
 }
