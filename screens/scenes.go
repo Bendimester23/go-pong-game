@@ -29,6 +29,7 @@ func LoadScenes() {
 	scenes[5] = &UsernameScreen{}
 	scenes[6] = &DifficulityScreen{}
 	scenes[7] = &WeirdModeScreen{}
+	scenes[8] = &LeaderboardScreen{}
 
 	ResetAllScenes()
 }

@@ -28,9 +28,11 @@ func main() {
 	utils.LoadAllResources(res)
 	screens.LoadScenes()
 
-	if !utils.Save.Saved {
+	/* if !utils.Save.Saved {
 		screens.SwitchToScene(5)
-	}
+	} */
+
+	screens.SwitchToScene(8)
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()

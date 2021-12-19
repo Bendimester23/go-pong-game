@@ -31,9 +31,13 @@ func Clamp(min, max, v float32) float32 {
 }
 
 func GrayWithAlpha(a, offset float32) rl.Color {
+
 	return rl.NewColor(100, 100, 100, GetAlpha(a, offset))
 }
 
 func GetAlpha(a, offset float32) uint8 {
+	if a > -1 {
+		return 255
+	}
 	return uint8((Clamp(0, 30, a+30.0-offset) / 30.0) * 256)
 }

@@ -6,6 +6,15 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
+var (
+	optionsMenuMap = map[int]int{
+		0: 5,
+		1: 6,
+		2: 7,
+		3: 0,
+	}
+)
+
 type OptionsScreen struct {
 	selected  int
 	ease_curr float32
@@ -35,16 +44,7 @@ func (o *OptionsScreen) Update() {
 	if (rl.IsKeyPressed(rl.KeyEnter) || rl.IsKeyPressed(rl.KeySpace)) && o.a > -5 {
 		rl.PlaySound(utils.ClickSound)
 		utils.SaveGame()
-		switch o.selected {
-		case 0:
-			SwitchToScene(5)
-		case 1:
-			SwitchToScene(6)
-		case 2:
-			SwitchToScene(7)
-		case 3:
-			SwitchToScene(0)
-		}
+		SwitchToScene(optionsMenuMap[o.selected])
 	}
 }
 
